@@ -6,13 +6,25 @@
   * { box-sizing: border-box; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    max-width: 900px;
+    max-width: 920px;
     margin: 30px auto;
-    padding: 0 20px;
+    padding: 0 20px 60px;
     color: #222;
     background: #f7f7fa;
+    line-height: 1.5;
   }
-  h1 { color: #2c3e50; }
+  h1 { color: #2c3e50; margin-bottom: 4px; }
+  h2 {
+    margin-top: 0;
+    font-size: 1.1em;
+    color: #34495e;
+  }
+  h3 {
+    font-size: 1em;
+    color: #2c3e50;
+    margin: 14px 0 6px;
+  }
+  .subtitle { color: #666; margin-top: 0; }
   .card {
     background: #fff;
     border: 1px solid #e1e1e8;
@@ -20,11 +32,6 @@
     padding: 20px;
     margin-bottom: 18px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-  }
-  .card h2 {
-    margin-top: 0;
-    font-size: 1.1em;
-    color: #34495e;
   }
   .step-num {
     display: inline-block;
@@ -37,23 +44,69 @@
     font-weight: bold;
     margin-right: 8px;
   }
-  input[type=file] { display: block; margin: 10px 0; }
-  button {
-    background: #27ae60;
-    color: white;
-    border: none;
-    padding: 10px 18px;
-    font-size: 15px;
-    border-radius: 5px;
+
+  /* Drop zone */
+  .dropzone {
+    border: 2px dashed #b0b8c5;
+    border-radius: 8px;
+    padding: 24px 16px;
+    text-align: center;
     cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+    background: #fafbfc;
+    margin-top: 10px;
   }
-  button.secondary { background: #7f8c8d; }
-  button:disabled { background: #95a5a6; cursor: not-allowed; }
-  button:hover:not(:disabled) { filter: brightness(1.1); }
+  .dropzone:hover { border-color: #3498db; background: #f4f9fd; }
+  .dropzone.drag-over {
+    border-color: #27ae60;
+    background: #e9f7ef;
+  }
+  .dropzone .dz-title {
+    font-weight: 600;
+    color: #34495e;
+  }
+  .dropzone .dz-sub {
+    font-size: 13px;
+    color: #777;
+    margin-top: 4px;
+  }
+  .dropzone .dz-icon {
+    font-size: 28px;
+    margin-bottom: 6px;
+    opacity: 0.6;
+  }
+
+  /* Boxes */
+  .info-box {
+    background: #fff8dc;
+    border-left: 4px solid #f1c40f;
+    padding: 10px 14px;
+    margin: 0 0 14px;
+    font-size: 14px;
+    border-radius: 4px;
+  }
+  .ok-box {
+    background: #e9f7ef;
+    border-left: 4px solid #27ae60;
+    padding: 8px 12px;
+    margin: 10px 0 0;
+    font-size: 14px;
+    border-radius: 4px;
+  }
+  .err-box {
+    background: #fdecea;
+    border-left: 4px solid #e74c3c;
+    padding: 8px 12px;
+    margin: 10px 0 0;
+    font-size: 14px;
+    border-radius: 4px;
+  }
+
+  /* File list */
   .filelist {
     list-style: none;
     padding: 0;
-    margin: 10px 0 0 0;
+    margin: 12px 0 0 0;
   }
   .filelist li {
     padding: 8px 12px;
@@ -63,31 +116,82 @@
     align-items: center;
     font-size: 14px;
   }
+  .filelist li:last-child { border-bottom: none; }
   .status-pending    { color: #888; }
   .status-processing { color: #f39c12; font-weight: bold; }
   .status-done       { color: #27ae60; font-weight: bold; }
   .status-error      { color: #e74c3c; font-weight: bold; }
-  .info-box {
-    background: #fff8dc;
-    border-left: 4px solid #f1c40f;
-    padding: 10px 14px;
-    margin: 10px 0;
+
+  /* Controls */
+  button {
+    background: #27ae60;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  button:disabled { background: #95a5a6; cursor: not-allowed; }
+  button:hover:not(:disabled) { filter: brightness(1.08); }
+  button.link-btn {
+    background: none;
+    color: #e74c3c;
+    padding: 4px 8px;
+    font-size: 13px;
+    font-weight: normal;
+  }
+  .controls {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 4px;
+  }
+  .controls label {
+    font-size: 14px;
+    color: #555;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .controls input[type=number],
+  .controls input[type=text] {
+    padding: 6px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
     font-size: 14px;
   }
-  .ok-box {
-    background: #e9f7ef;
-    border-left: 4px solid #27ae60;
-    padding: 8px 12px;
-    margin: 8px 0;
+  .controls input[type=number] { width: 90px; }
+  .controls input[type=text] { width: 170px; }
+
+  /* Instructions */
+  .instructions ol { padding-left: 20px; }
+  .instructions li { margin-bottom: 4px; }
+  .instructions code,
+  code.inline {
+    background: #eef1f5;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 13px;
+  }
+  .timing-table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 8px;
     font-size: 14px;
   }
-  .err-box {
-    background: #fdecea;
-    border-left: 4px solid #e74c3c;
-    padding: 8px 12px;
-    margin: 8px 0;
-    font-size: 14px;
+  .timing-table th, .timing-table td {
+    text-align: left;
+    padding: 8px 10px;
+    border-bottom: 1px solid #eee;
+    vertical-align: top;
   }
+  .timing-table th { background: #f1f3f6; }
+  .timing-table code { background: #eef1f5; padding: 1px 5px; border-radius: 3px; }
+
+  /* Hidden iframe host for conversion */
   #iframe-host {
     position: fixed;
     left: -9999px;
@@ -95,93 +199,200 @@
     width: 1024px;
     height: 768px;
   }
+
+  /* Log */
   #log {
-    max-height: 220px;
+    max-height: 240px;
     overflow-y: auto;
     background: #2c3e50;
     color: #ecf0f1;
-    font-family: monospace;
+    font-family: ui-monospace, Menlo, Consolas, monospace;
     font-size: 12px;
     padding: 10px;
     border-radius: 4px;
-    margin-top: 10px;
+    margin-top: 14px;
+    line-height: 1.4;
   }
-  label { font-size: 14px; color: #555; }
-  .controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+
   .muted { color: #777; font-size: 13px; }
-  details { margin-top: 8px; }
-  summary { cursor: pointer; color: #3498db; font-size: 13px; }
+  input[type=file] { display: none; }
+
+  details summary {
+    cursor: pointer;
+    color: #3498db;
+    margin-bottom: 6px;
+  }
 </style>
 </head>
 <body>
 
 <h1>Jupyter → SageMath HTML Converter</h1>
+<p class="subtitle">Convert <code class="inline">.ipynb</code> notebooks into self-contained SageMath HTML notebooks, in-browser.</p>
 
-<div class="info-box">
-  This tool converts <code>.ipynb</code> files into your SageMath HTML notebook format
-  by reusing the exact <code>importFromIPYNB()</code> and <code>saveHtml()</code>
-  functions shipped with your <code>nbrunner</code>. The <code>nbrunner</code> version
-  used is whichever the <strong>template</strong> file references, so update the template
-  to upgrade.
+<!-- ============== Step 1: Template ============== -->
+<div class="card">
+  <h2><span class="step-num">1</span>Upload the SageMath HTML template</h2>
+  <p class="muted" style="margin-top:0;">
+    A blank notebook exported from your usual workflow. The template defines the
+    <code class="inline">nbrunner</code> version that will perform the conversion.
+  </p>
+  <div class="dropzone" id="template-dz">
+    <div class="dz-icon">📄</div>
+    <div class="dz-title">Drop your template <code class="inline">.html</code> here</div>
+    <div class="dz-sub">or click to browse</div>
+  </div>
+  <input type="file" id="template-input" accept=".html,.htm">
+  <div id="template-status"></div>
 </div>
 
+<!-- ============== Step 2: Notebooks ============== -->
 <div class="card">
-  <h2><span class="step-num">1</span>Template</h2>
-  <div id="template-status" class="muted">Looking in <code>template/</code> directory…</div>
-  <details>
-    <summary>Override / supply manually</summary>
-    <input type="file" id="template-input" accept=".html,.htm">
-    <div class="muted">Pick a blank/empty <code>.html</code> notebook saved with your usual workflow.</div>
-  </details>
-</div>
-
-<div class="card">
-  <h2><span class="step-num">2</span>Jupyter Notebooks to convert</h2>
+  <h2><span class="step-num">2</span>Add Jupyter notebooks</h2>
+  <p class="muted" style="margin-top:0;">
+    One or many <code class="inline">.ipynb</code> files. They're processed sequentially.
+  </p>
+  <div class="dropzone" id="ipynb-dz">
+    <div class="dz-icon">📓</div>
+    <div class="dz-title">Drop <code class="inline">.ipynb</code> files here</div>
+    <div class="dz-sub">or click to browse (multiple allowed)</div>
+  </div>
   <input type="file" id="ipynb-input" accept=".ipynb" multiple="">
   <ul class="filelist" id="filelist"></ul>
 </div>
 
+<!-- ============== Step 3: Convert ============== -->
 <div class="card">
-  <h2><span class="step-num">3</span>Convert</h2>
+  <h2><span class="step-num">3</span>Convert &amp; download</h2>
   <div class="controls">
     <button id="convert-btn" disabled="">Convert &amp; Download</button>
     <label>
-      Per-file delay (ms):
-      <input type="number" id="delay-input" value="800" min="0" step="100" style="width:80px;">
+      <span>Settle time (ms)</span>
+      <input type="number" id="settle-input" value="2500" min="500" step="100">
     </label>
     <label>
-      Settle time after import (ms):
-      <input type="number" id="settle-input" value="2500" min="1000" step="100" style="width:80px;">
+      <span>Per-file delay (ms)</span>
+      <input type="number" id="delay-input" value="800" min="0" step="100">
     </label>
     <label>
-      Zip name:
-      <input type="text" id="zip-name" value="notebooks.zip" style="width:160px;">
+      <span>Zip filename</span>
+      <input type="text" id="zip-name" value="notebooks.zip">
     </label>
   </div>
   <div id="log" style="display:none;"></div>
+</div>
+
+<!-- ============== Instructions ============== -->
+<div class="card instructions">
+  <h2>How it works</h2>
+  <p>
+    The converter uses your <strong>template</strong> — a blank SageMath HTML
+    notebook — as the host environment. The template is loaded into a hidden
+    iframe, which means the version of <code class="inline">nbrunner</code> used is
+    whichever the template references. <em>To upgrade the conversion engine, just
+    re-export and upload a fresh template.</em>
+  </p>
+  <p>For each <code class="inline">.ipynb</code> you supply, the page:</p>
+  <ol>
+    <li>Loads a fresh copy of the template into an isolated iframe.</li>
+    <li>Calls the template's own <code class="inline">importFromIPYNB()</code> to load your notebook.</li>
+    <li>Waits for cells to render and KaTeX/MathJax to settle.</li>
+    <li>Calls the template's own <code class="inline">saveHtml()</code>, intercepts the produced blob, and stores it.</li>
+  </ol>
+  <p>
+    A <strong>single</strong> notebook is downloaded directly as <code class="inline">.html</code>.
+    <strong>Multiple</strong> notebooks are bundled into one <code class="inline">.zip</code> using
+    <a href="https://github.com/101arrowz/fflate" target="_blank" rel="noopener">fflate</a>,
+    so you only get one download.
+  </p>
+
+  <h3>About the timing settings</h3>
+  <p>
+    The two timers below control how long the converter waits between operations
+    inside the iframe. They exist because rendering happens asynchronously
+    (KaTeX, image loading, the <code class="inline">nbrunner</code> reprocess pass) and the page can't
+    know in advance when it's truly done. Defaults work for typical notebooks —
+    increase them if you see incomplete output, decrease them to speed up batches
+    of small files.
+  </p>
+  <table class="timing-table">
+    <thead>
+      <tr><th>Setting</th><th>What it controls</th><th>When to change it</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Settle time</strong></td>
+        <td>How long to wait <em>after</em> <code>importFromIPYNB()</code> before
+            calling <code>saveHtml()</code>. Gives cells, math, and images time to
+            finish rendering.</td>
+        <td><strong>Increase</strong> (e.g. 4000–6000&nbsp;ms) for long notebooks
+            with lots of LaTeX or large outputs.<br>
+            <strong>Decrease</strong> (e.g. 1500&nbsp;ms) for short notebooks if
+            you want batches to finish faster.</td>
+      </tr>
+      <tr>
+        <td><strong>Per-file delay</strong></td>
+        <td>Pause between consecutive conversions, after one is finished and
+            before the next iframe is created.</td>
+        <td>Usually fine at the default. <strong>Increase</strong> if your browser
+            seems sluggish during big batches; <strong>set to 0</strong> for
+            maximum speed.</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
 <div id="iframe-host"></div>
 
 <script>
   // ---------------- State ----------------
-  // The template can come either from a URL (auto-detected in template/) or
-  // from a manual upload (raw HTML string).
-  let templateUrl  = null;     // string URL or null
-  let templateHtml = null;     // raw HTML string or null
-  let ipynbFiles = [];
+  let templateHtml = null;       // raw HTML string of the template
+  let templateName = null;       // for display
+  let ipynbFiles   = [];
   const fileStatus = new Map();
 
   // ---------------- DOM refs ----------------
+  const templateDz     = document.getElementById('template-dz');
   const templateInput  = document.getElementById('template-input');
   const templateStatus = document.getElementById('template-status');
+  const ipynbDz        = document.getElementById('ipynb-dz');
   const ipynbInput     = document.getElementById('ipynb-input');
   const fileList       = document.getElementById('filelist');
   const convertBtn     = document.getElementById('convert-btn');
   const logEl          = document.getElementById('log');
-  const delayInput     = document.getElementById('delay-input');
   const settleInput    = document.getElementById('settle-input');
+  const delayInput     = document.getElementById('delay-input');
   const zipNameInput   = document.getElementById('zip-name');
+
+  // ---------------- Drop zone helper ----------------
+  function makeDropzone(zoneEl, inputEl, onFiles) {
+    zoneEl.addEventListener('click', () => inputEl.click());
+    inputEl.addEventListener('change', (e) => {
+      if (e.target.files.length) onFiles(Array.from(e.target.files));
+      inputEl.value = ''; // allow selecting the same file again
+    });
+    ['dragenter', 'dragover'].forEach(ev =>
+      zoneEl.addEventListener(ev, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        zoneEl.classList.add('drag-over');
+      })
+    );
+    ['dragleave', 'drop'].forEach(ev =>
+      zoneEl.addEventListener(ev, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        zoneEl.classList.remove('drag-over');
+      })
+    );
+    zoneEl.addEventListener('drop', (e) => {
+      const files = Array.from(e.dataTransfer.files || []);
+      if (files.length) onFiles(files);
+    });
+    // Prevent the page from navigating if a file is dropped outside zones
+    ['dragover', 'drop'].forEach(ev =>
+      window.addEventListener(ev, (e) => e.preventDefault())
+    );
+  }
 
   // ---------------- Logging ----------------
   function log(msg, kind = 'info') {
@@ -195,82 +406,57 @@
     logEl.scrollTop = logEl.scrollHeight;
   }
 
-  // ---------------- Auto-detect template in /template ----------------
-  async function autoDetectTemplate() {
-    try {
-      const res = await fetch('template/', { cache: 'no-cache' });
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      const text = await res.text();
-
-      // Parse the directory listing returned by the server (Apache, nginx
-      // autoindex, python -m http.server, etc.) and pick the first .html file.
-      const doc = new DOMParser().parseFromString(text, 'text/html');
-      const links = Array.from(doc.querySelectorAll('a'))
-        .map(a => a.getAttribute('href'))
-        .filter(h => h && /\.html?$/i.test(h))
-        // skip parent-dir style links
-        .filter(h => !h.startsWith('?') && !h.startsWith('/') && !h.startsWith('..'));
-
-      if (links.length === 0) {
-        throw new Error('no .html file found in template/');
-      }
-      if (links.length > 1) {
-        log('Multiple HTML files in template/ — using "' + links[0] + '"', 'warn');
-      }
-
-      const url = 'template/' + links[0];
-      // Sanity-check the file
-      const probe = await fetch(url, { cache: 'no-cache' });
-      if (!probe.ok) throw new Error('cannot fetch ' + url);
-      const html = await probe.text();
-      if (!/nbrunner/i.test(html) || !/nb-worksheet/.test(html)) {
-        templateStatus.innerHTML =
-          `<div class="err-box">⚠️ Found <code>${url}</code> but it doesn't look
-           like a SageMath HTML notebook. Conversion may fail.</div>`;
-      } else {
-        templateStatus.innerHTML =
-          `<div class="ok-box">✅ Auto-detected template: <code>${url}</code></div>`;
-      }
-      templateUrl  = url;
-      templateHtml = null; // we'll use the URL form
-      updateConvertButton();
-    } catch (err) {
-      templateStatus.innerHTML =
-        `<div class="err-box">Could not auto-detect template
-         (<code>${err.message}</code>). Please supply one manually below.</div>`;
-    }
-  }
-  autoDetectTemplate();
-
-  // ---------------- Manual template upload ----------------
-  templateInput.addEventListener('change', (e) => {
-    const file = e.target.files[0];
+  // ---------------- Template handling ----------------
+  makeDropzone(templateDz, templateInput, (files) => {
+    const file = files.find(f => /\.html?$/i.test(f.name)) || files[0];
     if (!file) return;
+    if (!/\.html?$/i.test(file.name)) {
+      templateStatus.innerHTML =
+        `<div class="err-box">⚠️ <code>${file.name}</code> is not an HTML file.</div>`;
+      return;
+    }
     const reader = new FileReader();
     reader.onload = (ev) => {
       const html = ev.target.result;
-      const ok = /nbrunner/i.test(html) && /nb-worksheet/.test(html);
-      if (!ok) {
+      const looksRight = /nbrunner/i.test(html) && /nb-worksheet/.test(html);
+      templateHtml = html;
+      templateName = file.name;
+      if (!looksRight) {
         templateStatus.innerHTML =
-          `<div class="err-box">⚠️ <code>${file.name}</code> doesn't look like a
-           SageMath HTML notebook (missing <code>nbrunner</code> or
-           <code>.nb-worksheet</code>). It may not work.</div>`;
+          `<div class="err-box">⚠️ Loaded <code>${file.name}</code> but it doesn't
+           look like a SageMath HTML notebook (missing <code>nbrunner</code> or
+           <code>.nb-worksheet</code>). Conversion will probably fail.</div>`;
       } else {
         templateStatus.innerHTML =
-          `<div class="ok-box">✅ Using manually-supplied template:
-           <code>${file.name}</code></div>`;
+          `<div class="ok-box">✅ Template loaded: <strong>${file.name}</strong>
+           (${(file.size/1024).toFixed(1)} KB)</div>`;
       }
-      templateHtml = html;
-      templateUrl  = null;     // override auto-detected one
       updateConvertButton();
+    };
+    reader.onerror = () => {
+      templateStatus.innerHTML =
+        `<div class="err-box">Could not read <code>${file.name}</code>.</div>`;
     };
     reader.readAsText(file);
   });
 
-  // ---------------- IPYNB selection ----------------
-  ipynbInput.addEventListener('change', (e) => {
-    ipynbFiles = Array.from(e.target.files);
-    fileStatus.clear();
+  // ---------------- IPYNB handling ----------------
+  makeDropzone(ipynbDz, ipynbInput, (files) => {
+    const accepted = files.filter(f => /\.ipynb$/i.test(f.name));
+    const rejected = files.filter(f => !/\.ipynb$/i.test(f.name));
+    if (rejected.length) {
+      log(`Skipped ${rejected.length} non-.ipynb file(s): ` +
+          rejected.map(f => f.name).join(', '), 'warn');
+    }
+    // Append, dedupe by name+size
+    const key = f => f.name + '|' + f.size;
+    const existing = new Set(ipynbFiles.map(key));
+    for (const f of accepted) {
+      if (!existing.has(key(f))) {
+        ipynbFiles.push(f);
+        existing.add(key(f));
+      }
+    }
     renderFileList();
     updateConvertButton();
   });
@@ -279,13 +465,31 @@
     fileList.innerHTML = '';
     ipynbFiles.forEach((f, i) => {
       const li = document.createElement('li');
-      li.dataset.index = i;
       const status = fileStatus.get(f) || 'pending';
       li.innerHTML = `
-        <span>${f.name} <small style="color:#999">(${(f.size/1024).toFixed(1)} KB)</small></span>
-        <span class="status status-${status}">${status}</span>`;
+        <span>📓 ${escapeHtml(f.name)}
+          <small style="color:#999">(${(f.size/1024).toFixed(1)} KB)</small></span>
+        <span>
+          <span class="status-${status}">${status}</span>
+          <button class="link-btn" data-i="${i}" title="Remove">✕</button>
+        </span>`;
       fileList.appendChild(li);
     });
+    fileList.querySelectorAll('button.link-btn').forEach(b => {
+      b.addEventListener('click', () => {
+        const idx = parseInt(b.dataset.i);
+        const removed = ipynbFiles.splice(idx, 1)[0];
+        fileStatus.delete(removed);
+        renderFileList();
+        updateConvertButton();
+      });
+    });
+  }
+
+  function escapeHtml(s) {
+    return s.replace(/[&<>"']/g, c => ({
+      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+    })[c]);
   }
 
   function setFileStatus(file, status) {
@@ -294,18 +498,18 @@
   }
 
   function updateConvertButton() {
-    convertBtn.disabled = !((templateUrl || templateHtml) && ipynbFiles.length > 0);
+    convertBtn.disabled = !(templateHtml && ipynbFiles.length > 0);
   }
 
   // ---------------- Conversion ----------------
   convertBtn.addEventListener('click', async () => {
     convertBtn.disabled = true;
     const settle = parseInt(settleInput.value) || 2500;
-    const gap    = parseInt(delayInput.value)  || 800;
+    const gap    = parseInt(delayInput.value)  || 0;
 
-    log(`Starting conversion of ${ipynbFiles.length} file(s)…`);
+    log(`Starting conversion of ${ipynbFiles.length} file(s) using template "${templateName}"…`);
 
-    const produced = []; // { name, data: Uint8Array }
+    const produced = [];
 
     for (let i = 0; i < ipynbFiles.length; i++) {
       const f = ipynbFiles[i];
@@ -315,13 +519,13 @@
         const result = await convertOne(f, settle);
         produced.push(result);
         setFileStatus(f, 'done');
-        log(`✓ "${f.name}" → "${result.name}" (${result.data.length} bytes)`, 'ok');
+        log(`   ✓ produced "${result.name}" (${(result.data.length/1024).toFixed(1)} KB)`, 'ok');
       } catch (err) {
         setFileStatus(f, 'error');
-        log(`✗ "${f.name}" failed: ${err.message}`, 'err');
+        log(`   ✗ "${f.name}" failed: ${err.message}`, 'err');
         console.error(err);
       }
-      if (i < ipynbFiles.length - 1) await sleep(gap);
+      if (i < ipynbFiles.length - 1 && gap > 0) await sleep(gap);
     }
 
     if (produced.length === 0) {
@@ -331,12 +535,10 @@
     }
 
     if (produced.length === 1) {
-      // Single conversion → download the HTML directly
       const r = produced[0];
       downloadBlob(new Blob([r.data], { type: 'text/html;charset=utf-8' }), r.name);
-      log('Single file downloaded.', 'ok');
+      log(`Downloaded "${r.name}".`, 'ok');
     } else {
-      // Multiple conversions → bundle into a zip with fflate
       const zipObj = {};
       const used = new Set();
       for (const r of produced) {
@@ -352,13 +554,13 @@
         used.add(name);
         zipObj[name] = r.data;
       }
-      log('Zipping…');
+      log('Zipping with fflate…');
       const zipped = fflate.zipSync(zipObj, { level: 6 });
-      const zipName = (zipNameInput.value.trim() || 'notebooks.zip')
+      let zipName = (zipNameInput.value.trim() || 'notebooks.zip')
         .replace(/[^a-zA-Z0-9._-]/g, '_');
-      const finalName = zipName.endsWith('.zip') ? zipName : zipName + '.zip';
-      downloadBlob(new Blob([zipped], { type: 'application/zip' }), finalName);
-      log(`Zip "${finalName}" downloaded (${produced.length} files).`, 'ok');
+      if (!zipName.toLowerCase().endsWith('.zip')) zipName += '.zip';
+      downloadBlob(new Blob([zipped], { type: 'application/zip' }), zipName);
+      log(`Downloaded "${zipName}" (${produced.length} files, ${(zipped.length/1024).toFixed(1)} KB).`, 'ok');
     }
 
     convertBtn.disabled = false;
@@ -385,7 +587,7 @@
 
       const timeoutId = setTimeout(() => {
         cleanup();
-        reject(new Error('Iframe environment did not become ready (60s timeout).'));
+        reject(new Error('Conversion timed out (60 s).'));
       }, 60000);
 
       function cleanup() {
@@ -407,24 +609,24 @@
             45000
           );
 
-          // Auto-confirm the wipe prompt; route alerts to our log.
+          // Auto-confirm any "wipe current notebook" prompt; mirror alerts.
           win.confirm = () => true;
-          win.alert   = (m) => log('  iframe alert: ' + m, 'warn');
+          win.alert   = (m) => log('   iframe alert: ' + m, 'warn');
 
           // Intercept saveAs so the produced blob is captured here instead
-          // of being downloaded as an individual file.
+          // of being downloaded as a separate file.
           win.saveAs = (blob, name) => { captured = { blob, name }; };
 
-          // Run the EXACT functions from your nbrunner script
+          // Use the template's own functions
           win.importFromIPYNB(file);
 
-          // importFromIPYNB schedules reprocess at 500/1500ms; wait longer.
+          // importFromIPYNB schedules reprocessing at ~500/1500 ms; wait longer.
           await sleep(settleMs);
 
           win.saveHtml();
 
           // Give saveHtml a tick to call our overridden saveAs.
-          await sleep(200);
+          await sleep(250);
 
           if (!captured) throw new Error('saveHtml() did not produce a blob.');
 
@@ -442,14 +644,7 @@
         reject(new Error('Iframe failed to load template.'));
       };
 
-      // Prefer src= when we have a real URL: relative paths in the template
-      // (e.g. playerConfig.playerPath, nbplayerConfig.js) then resolve
-      // relative to the template's actual location.
-      if (templateUrl) {
-        iframe.src = templateUrl;
-      } else {
-        iframe.srcdoc = templateHtml;
-      }
+      iframe.srcdoc = templateHtml;
     });
   }
 
@@ -461,7 +656,7 @@
         try { ok = !!predicate(); } catch (e) {}
         if (ok) return resolve();
         if (Date.now() - start > timeoutMs) {
-          return reject(new Error('Timeout waiting for nbrunner to initialize.'));
+          return reject(new Error('Timed out waiting for nbrunner to initialize.'));
         }
         setTimeout(tick, intervalMs);
       })();
