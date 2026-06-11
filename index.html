@@ -287,29 +287,17 @@
   <p>
     The converter uses your <strong>template</strong> — a blank SageMath HTML
     notebook — as the host environment. The template is loaded into a hidden
-    iframe, which means the version of <code class="inline">nbrunner</code> used is
-    whichever the template references. <em>To upgrade the conversion engine, just
-    re-export and upload a fresh template.</em>
+    iframe, which means the all the custom settings are applied in exported HTML notebooks.
   </p>
-  <p>For each <code class="inline">.ipynb</code> you supply, the page:</p>
-  <ol>
-    <li>Loads a fresh copy of the template into an isolated iframe.</li>
-    <li>Calls the template's own <code class="inline">importFromIPYNB()</code> to load your notebook.</li>
-    <li>Waits for cells to render and KaTeX/MathJax to settle.</li>
-    <li>Calls the template's own <code class="inline">saveHtml()</code>, intercepts the produced blob, and stores it.</li>
-  </ol>
   <p>
     A <strong>single</strong> notebook is downloaded directly as <code class="inline">.html</code>.
-    <strong>Multiple</strong> notebooks are bundled into one <code class="inline">.zip</code> using
-    <a href="https://github.com/101arrowz/fflate" target="_blank" rel="noopener">fflate</a>,
-    so you only get one download.
+    <strong>Multiple</strong> notebooks are bundled into one <code class="inline">.zip</code> file.
   </p>
 
-  <h3>About the timing settings</h3>
+  <h3>Timing settings</h3>
   <p>
-    The two timers below control how long the converter waits between operations
-    inside the iframe. They exist because rendering happens asynchronously
-    (KaTeX, image loading, the <code class="inline">nbrunner</code> reprocess pass) and the page can't
+    Two timers control how long the converter waits between operations
+    inside the iframe. They exist because rendering happens asynchronously since the page (as of now) can't
     know in advance when it's truly done. Defaults work for typical notebooks —
     increase them if you see incomplete output, decrease them to speed up batches
     of small files.
@@ -321,9 +309,8 @@
     <tbody>
       <tr>
         <td><strong>Settle time</strong></td>
-        <td>How long to wait <em>after</em> <code>importFromIPYNB()</code> before
-            calling <code>saveHtml()</code>. Gives cells, math, and images time to
-            finish rendering.</td>
+        <td>How long to wait <em>after</em> <code>.ipynb</code> import before
+            calling triggering Save sequence (as if one would do it in the Sage notebook).</td>
         <td><strong>Increase</strong> (e.g. 4000–6000&nbsp;ms) for long notebooks
             with lots of LaTeX or large outputs.<br>
             <strong>Decrease</strong> (e.g. 1500&nbsp;ms) for short notebooks if
