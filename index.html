@@ -14,16 +14,8 @@
     line-height: 1.5;
   }
   h1 { color: #2c3e50; margin-bottom: 4px; }
-  h2 {
-    margin-top: 0;
-    font-size: 1.1em;
-    color: #34495e;
-  }
-  h3 {
-    font-size: 1em;
-    color: #2c3e50;
-    margin: 14px 0 6px;
-  }
+  h2 { margin-top: 0; font-size: 1.1em; color: #34495e; }
+  h3 { font-size: 1em; color: #2c3e50; margin: 16px 0 6px; }
   .subtitle { color: #666; margin-top: 0; }
   .card {
     background: #fff;
@@ -57,24 +49,10 @@
     margin-top: 10px;
   }
   .dropzone:hover { border-color: #3498db; background: #f4f9fd; }
-  .dropzone.drag-over {
-    border-color: #27ae60;
-    background: #e9f7ef;
-  }
-  .dropzone .dz-title {
-    font-weight: 600;
-    color: #34495e;
-  }
-  .dropzone .dz-sub {
-    font-size: 13px;
-    color: #777;
-    margin-top: 4px;
-  }
-  .dropzone .dz-icon {
-    font-size: 28px;
-    margin-bottom: 6px;
-    opacity: 0.6;
-  }
+  .dropzone.drag-over { border-color: #27ae60; background: #e9f7ef; }
+  .dropzone .dz-title { font-weight: 600; color: #34495e; }
+  .dropzone .dz-sub { font-size: 13px; color: #777; margin-top: 4px; }
+  .dropzone .dz-icon { font-size: 28px; margin-bottom: 6px; opacity: 0.6; }
 
   /* Boxes */
   .info-box {
@@ -103,24 +81,52 @@
   }
 
   /* File list */
-  .filelist {
-    list-style: none;
-    padding: 0;
-    margin: 12px 0 0 0;
-  }
+  .filelist { list-style: none; padding: 0; margin: 12px 0 0 0; }
   .filelist li {
     padding: 8px 12px;
     border-bottom: 1px solid #eee;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 10px;
     font-size: 14px;
   }
   .filelist li:last-child { border-bottom: none; }
+  .filelist .path { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12.5px; }
   .status-pending    { color: #888; }
   .status-processing { color: #f39c12; font-weight: bold; }
   .status-done       { color: #27ae60; font-weight: bold; }
   .status-error      { color: #e74c3c; font-weight: bold; }
+  .status-skipped    { color: #8e44ad; font-weight: bold; }
+
+  /* Bundles */
+  .bundle {
+    border: 1px solid #e1e1e8;
+    border-radius: 6px;
+    margin-top: 12px;
+    background: #fcfcfe;
+  }
+  .bundle-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 12px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+  }
+  .bundle-head strong { color: #2c3e50; }
+  .badge {
+    display: inline-block;
+    background: #eef1f5;
+    color: #555;
+    border-radius: 10px;
+    padding: 1px 9px;
+    font-size: 12px;
+    margin-left: 6px;
+  }
+  .bundle details { padding: 8px 12px 10px; }
+  .bundle details > summary { font-size: 13px; }
 
   /* Controls */
   button {
@@ -141,6 +147,14 @@
     padding: 4px 8px;
     font-size: 13px;
     font-weight: normal;
+  }
+  button.ghost-btn {
+    background: none;
+    color: #3498db;
+    padding: 2px 6px;
+    font-size: 13px;
+    font-weight: normal;
+    text-decoration: underline;
   }
   .controls {
     display: flex;
@@ -164,17 +178,59 @@
     font-size: 14px;
   }
   .controls input[type=number] { width: 90px; }
-  .controls input[type=text] { width: 170px; }
+  .controls input[type=text] { width: 190px; }
+
+  fieldset {
+    border: 1px solid #e4e7ec;
+    border-radius: 6px;
+    padding: 10px 14px 12px;
+    margin: 0 0 14px;
+  }
+  fieldset legend { font-size: 13px; color: #7f8c8d; font-weight: 600; padding: 0 6px; }
+  .opt-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 14px;
+    margin: 6px 0;
+  }
+  .opt-row input { margin-top: 4px; }
+  .opt-row .hint { display: block; color: #777; font-size: 12.5px; }
+
+  /* Progress */
+  #progress-wrap { margin-top: 14px; display: none; }
+  #progress-bar {
+    width: 100%;
+    height: 8px;
+    background: #e6e9ee;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  #progress-bar > div {
+    height: 100%;
+    width: 0%;
+    background: #27ae60;
+    transition: width 0.2s;
+  }
+  #progress-text { font-size: 13px; color: #666; margin-top: 5px; }
 
   /* Instructions */
-  .instructions ol { padding-left: 20px; }
-  .instructions li { margin-bottom: 4px; }
+  .instructions ol, .instructions ul { padding-left: 20px; }
+  .instructions li { margin-bottom: 5px; }
   .instructions code,
   code.inline {
     background: #eef1f5;
     padding: 1px 5px;
     border-radius: 3px;
     font-size: 13px;
+  }
+  pre.tree {
+    background: #f4f6f9;
+    border: 1px solid #e4e7ec;
+    border-radius: 5px;
+    padding: 10px 12px;
+    font-size: 12.5px;
+    overflow-x: auto;
   }
   .timing-table {
     border-collapse: collapse;
@@ -202,7 +258,7 @@
 
   /* Log */
   #log {
-    max-height: 240px;
+    max-height: 260px;
     overflow-y: auto;
     background: #2c3e50;
     color: #ecf0f1;
@@ -212,29 +268,25 @@
     border-radius: 4px;
     margin-top: 14px;
     line-height: 1.4;
+    white-space: pre-wrap;
   }
 
   .muted { color: #777; font-size: 13px; }
   input[type=file] { display: none; }
 
-  details summary {
-    cursor: pointer;
-    color: #3498db;
-    margin-bottom: 6px;
-  }
+  details summary { cursor: pointer; color: #3498db; margin-bottom: 6px; }
 </style>
 </head>
 <body>
 
 <h1>Jupyter → SageMath HTML Converter</h1>
-<p class="subtitle">Convert <code class="inline">.ipynb</code> notebooks into self-contained SageMath HTML notebooks, in-browser.</p>
+<p class="subtitle">Convert <code class="inline">.ipynb</code> notebooks — single files, whole folders or ZIP archives — into self-contained SageMath HTML notebooks, entirely in your browser.</p>
 
 <!-- ============== Step 1: Template ============== -->
 <div class="card">
   <h2><span class="step-num">1</span>Upload the SageMath HTML template</h2>
   <p class="muted" style="margin-top:0;">
-    A blank notebook exported from your usual workflow. The template defines the
-    <code class="inline">nbrunner</code> version that will perform the conversion.
+    A blank notebook with your custom settings (e.g., theme, your own Sage Cell server, AI settings etc.). These settings will be applied to all the exported notebooks.
   </p>
   <div class="dropzone" id="template-dz">
     <div class="dz-icon">📄</div>
@@ -245,24 +297,71 @@
   <div id="template-status"></div>
 </div>
 
-<!-- ============== Step 2: Notebooks ============== -->
+<!-- ============== Step 2: Input ============== -->
 <div class="card">
-  <h2><span class="step-num">2</span>Add Jupyter notebooks</h2>
+  <h2><span class="step-num">2</span>Add notebooks, a ZIP archive or a folder</h2>
   <p class="muted" style="margin-top:0;">
-    One or many <code class="inline">.ipynb</code> files. They're processed sequentially.
+    Three ways to feed the converter — they can be combined:
+    <strong>(a)</strong> one or more loose <code class="inline">.ipynb</code> files,
+    <strong>(b)</strong> a <code class="inline">.zip</code> archive with any folder structure,
+    <strong>(c)</strong> a folder dragged in or picked with the folder button.
+    Inside archives/folders only <code class="inline">.ipynb</code> files are converted;
+    everything else (images, data, PDFs…) is copied over unchanged.
   </p>
-  <div class="dropzone" id="ipynb-dz">
-    <div class="dz-icon">📓</div>
-    <div class="dz-title">Drop <code class="inline">.ipynb</code> files here</div>
-    <div class="dz-sub">or click to browse (multiple allowed)</div>
+  <div class="dropzone" id="input-dz">
+    <div class="dz-icon">📓 📦 📁</div>
+    <div class="dz-title">Drop <code class="inline">.ipynb</code> files, a <code class="inline">.zip</code>, or a folder here</div>
+    <div class="dz-sub">or click to browse files (multiple allowed)</div>
   </div>
-  <input type="file" id="ipynb-input" accept=".ipynb" multiple="">
+  <input type="file" id="file-input" accept=".ipynb,.zip" multiple="">
+  <input type="file" id="folder-input" webkitdirectory="" directory="" multiple="">
+  <div style="margin-top:8px;">
+    <button class="ghost-btn" id="pick-folder-btn" type="button">📁 Select a folder instead…</button>
+    <button class="ghost-btn" id="clear-btn" type="button" style="color:#e74c3c;">Clear everything</button>
+  </div>
   <ul class="filelist" id="filelist"></ul>
+  <div id="bundles"></div>
+  <div id="input-status"></div>
 </div>
 
-<!-- ============== Step 3: Convert ============== -->
+<!-- ============== Step 3: Options + Convert ============== -->
 <div class="card">
-  <h2><span class="step-num">3</span>Convert &amp; download</h2>
+  <h2><span class="step-num">3</span>Options, convert &amp; download</h2>
+
+  <fieldset>
+    <legend>Output naming</legend>
+    <label class="opt-row">
+      <input type="radio" name="naming" value="filename" checked="">
+      <span><strong>Use the notebook file name</strong> <em>(default)</em>
+        <span class="hint"><code class="inline">Lecture_03.ipynb</code> → <code class="inline">Lecture_03.html</code>. Recommended when the exported files must match your notebook names.</span></span>
+    </label>
+    <label class="opt-row">
+      <input type="radio" name="naming" value="h1">
+      <span><strong>Use the first H1 heading</strong>
+        <span class="hint">The name produced by the template's own <code class="inline">saveHtml()</code>, e.g. <code class="inline"># Linear algebra</code> → <code class="inline">Linear algebra.html</code>. Duplicates get <code class="inline">_1</code>, <code class="inline">_2</code>… suffixes.</span></span>
+    </label>
+  </fieldset>
+
+  <fieldset>
+    <legend>Archive / folder mode</legend>
+    <label class="opt-row">
+      <input type="checkbox" id="keep-ipynb">
+      <span><strong>Keep the original <code class="inline">.ipynb</code> files</strong> in the output
+        <span class="hint">Off by default — normally only the generated HTML files plus all non-notebook files are exported.</span></span>
+    </label>
+    <label class="opt-row">
+      <input type="checkbox" id="skip-checkpoints" checked="">
+      <span><strong>Ignore <code class="inline">.ipynb_checkpoints</code></strong> (and <code class="inline">__MACOSX</code>, <code class="inline">.DS_Store</code>)
+        <span class="hint">Auto-save copies are neither converted nor copied to the output.</span></span>
+    </label>
+    <p class="muted" style="margin:8px 0 0;">
+      🗑️ <strong>Stale-HTML rule (always on):</strong> if a folder already contains an HTML file
+      whose name matches a notebook in that same folder (<code class="inline">notes.ipynb</code> ↔
+      <code class="inline">notes.html</code>), that old HTML is replaced by the fresh export.
+      All other HTML files in the folder are left untouched.
+    </p>
+  </fieldset>
+
   <div class="controls">
     <button id="convert-btn" disabled="">Convert &amp; Download</button>
     <label>
@@ -275,9 +374,15 @@
     </label>
     <label>
       <span>Zip filename</span>
-      <input type="text" id="zip-name" value="notebooks.zip">
+      <input type="text" id="zip-name" value="converted.zip">
     </label>
   </div>
+
+  <div id="progress-wrap">
+    <div id="progress-bar"><div></div></div>
+    <div id="progress-text"></div>
+  </div>
+
   <div id="log" style="display:none;"></div>
 </div>
 
@@ -287,12 +392,55 @@
   <p>
     The converter uses your <strong>template</strong> — a blank SageMath HTML
     notebook — as the host environment. The template is loaded into a hidden
-    iframe, which means the all the custom settings are applied in exported HTML notebooks.
+    iframe, which means all the custom settings are applied in the exported HTML notebooks.
+    Nothing is uploaded anywhere: reading, converting and zipping happen locally in your browser.
   </p>
-  <p>
-    A <strong>single</strong> notebook is downloaded directly as <code class="inline">.html</code>.
-    <strong>Multiple</strong> notebooks are bundled into one <code class="inline">.zip</code> file.
+
+  <h3>What you get back</h3>
+  <ul>
+    <li><strong>One loose notebook</strong> → the <code>.html</code> file is downloaded directly.</li>
+    <li><strong>Several loose notebooks</strong> → one <code>.zip</code> containing the HTML files.</li>
+    <li><strong>ZIP / folder input</strong> → one <code>.zip</code> with the <em>original folder structure</em>,
+        the generated HTML files, and all non-notebook files preserved.</li>
+  </ul>
+
+  <h3>Example (archive mode, defaults)</h3>
+  <pre class="tree">input.zip                       output.zip
+├─ course/                      ├─ course/
+│   ├─ intro.ipynb              │   ├─ intro.html      ← new
+│   ├─ intro.html   (old)       │   ├─ syllabus.html   ← untouched
+│   ├─ syllabus.html            │   └─ img/plot.png    ← copied
+│   └─ img/plot.png             └─ data/values.csv     ← copied
+└─ data/values.csv</pre>
+  <p class="muted" style="margin-top:2px;">
+    <code class="inline">intro.html</code> was regenerated (the stale one was dropped),
+    <code class="inline">syllabus.html</code> had no matching notebook so it stayed,
+    and <code class="inline">intro.ipynb</code> was omitted because “Keep the original .ipynb files” is off.
   </p>
+
+  <h3>Naming: file name vs. H1 heading</h3>
+  <ul>
+    <li><strong>File name (default)</strong> — the export is named exactly like the notebook, so the
+        set of file names in your folders stays stable. Best for archives/folders, since links and
+        references usually rely on the notebook name.</li>
+    <li><strong>H1 heading</strong> — the legacy behaviour: the title from the notebook's first
+        <code class="inline">#</code> heading is used. In archive mode the file is still written into
+        the notebook's own folder; if the H1 name collides with a file produced in the same run,
+        a numeric suffix is added.</li>
+  </ul>
+
+  <h3>Notes &amp; limits</h3>
+  <ul>
+    <li><strong>Folder drag &amp; drop</strong> works in Chromium-based browsers and Firefox; if a
+        dropped folder isn't picked up, use the <em>“Select a folder instead…”</em> button.</li>
+    <li>Multiple archives/folders at once: each archive's contents are placed inside a top-level
+        folder named after the archive, so their trees can't clash. A single archive keeps its
+        structure at the root of the output zip.</li>
+    <li>If a notebook fails to convert, its original <code class="inline">.ipynb</code> is kept in the
+        output and no existing HTML is deleted — you never lose data because of a failed run.</li>
+    <li>Encrypted or unusually compressed ZIPs cannot be read in the browser; unzip them first.</li>
+    <li>Everything is processed sequentially, so very large archives simply take longer.</li>
+  </ul>
 
   <h3>Timing settings</h3>
   <p>
@@ -310,7 +458,7 @@
       <tr>
         <td><strong>Settle time</strong></td>
         <td>How long to wait <em>after</em> <code>.ipynb</code> import before
-            calling triggering Save sequence (as if one would do it in the Sage notebook).</td>
+            triggering the Save sequence (as if one would do it in the Sage notebook).</td>
         <td><strong>Increase</strong> (e.g. 4000–6000&nbsp;ms) for long notebooks
             with lots of LaTeX or large outputs.<br>
             <strong>Decrease</strong> (e.g. 1500&nbsp;ms) for short notebooks if
@@ -331,227 +479,601 @@
 <div id="iframe-host"></div>
 
 <script>
-  // ---------------- State ----------------
-  let templateHtml = null;       // raw HTML string of the template
-  let templateName = null;       // for display
-  let ipynbFiles   = [];
-  const fileStatus = new Map();
+  // =====================================================================
+  //  State
+  // =====================================================================
+  let templateHtml = null;   // raw HTML string of the template
+  let templateName = null;   // for display
 
-  // ---------------- DOM refs ----------------
+  // Loose notebooks: { file, status }
+  const looseFiles = [];
+  // Bundles (zip archives / uploaded folders):
+  //   { kind:'zip'|'folder', label, entries:[ { path, source, status } ] }
+  //   source = { type:'file', file } | { type:'bytes', data:Uint8Array }
+  const bundles = [];
+
+  // =====================================================================
+  //  DOM refs
+  // =====================================================================
   const templateDz     = document.getElementById('template-dz');
   const templateInput  = document.getElementById('template-input');
   const templateStatus = document.getElementById('template-status');
-  const ipynbDz        = document.getElementById('ipynb-dz');
-  const ipynbInput     = document.getElementById('ipynb-input');
+  const inputDz        = document.getElementById('input-dz');
+  const fileInput      = document.getElementById('file-input');
+  const folderInput    = document.getElementById('folder-input');
+  const pickFolderBtn  = document.getElementById('pick-folder-btn');
+  const clearBtn       = document.getElementById('clear-btn');
   const fileList       = document.getElementById('filelist');
+  const bundlesEl      = document.getElementById('bundles');
+  const inputStatus    = document.getElementById('input-status');
   const convertBtn     = document.getElementById('convert-btn');
   const logEl          = document.getElementById('log');
   const settleInput    = document.getElementById('settle-input');
   const delayInput     = document.getElementById('delay-input');
   const zipNameInput   = document.getElementById('zip-name');
+  const keepIpynbCb    = document.getElementById('keep-ipynb');
+  const skipCkptCb     = document.getElementById('skip-checkpoints');
+  const progressWrap   = document.getElementById('progress-wrap');
+  const progressBar    = document.querySelector('#progress-bar > div');
+  const progressText   = document.getElementById('progress-text');
 
-  // ---------------- Drop zone helper ----------------
-  function makeDropzone(zoneEl, inputEl, onFiles) {
-    zoneEl.addEventListener('click', () => inputEl.click());
-    inputEl.addEventListener('change', (e) => {
-      if (e.target.files.length) onFiles(Array.from(e.target.files));
-      inputEl.value = ''; // allow selecting the same file again
-    });
-    ['dragenter', 'dragover'].forEach(ev =>
-      zoneEl.addEventListener(ev, (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        zoneEl.classList.add('drag-over');
-      })
-    );
-    ['dragleave', 'drop'].forEach(ev =>
-      zoneEl.addEventListener(ev, (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        zoneEl.classList.remove('drag-over');
-      })
-    );
-    zoneEl.addEventListener('drop', (e) => {
-      const files = Array.from(e.dataTransfer.files || []);
-      if (files.length) onFiles(files);
-    });
-    // Prevent the page from navigating if a file is dropped outside zones
-    ['dragover', 'drop'].forEach(ev =>
-      window.addEventListener(ev, (e) => e.preventDefault())
-    );
-  }
-
-  // ---------------- Logging ----------------
+  // =====================================================================
+  //  Small helpers
+  // =====================================================================
   function log(msg, kind = 'info') {
     logEl.style.display = 'block';
     const line = document.createElement('div');
     const t = new Date().toLocaleTimeString();
-    const colors = { info:'#ecf0f1', ok:'#2ecc71', warn:'#f1c40f', err:'#e74c3c' };
+    const colors = { info:'#ecf0f1', ok:'#2ecc71', warn:'#f1c40f', err:'#e74c3c', dim:'#95a5a6' };
     line.style.color = colors[kind] || '#ecf0f1';
     line.textContent = `[${t}] ${msg}`;
     logEl.appendChild(line);
     logEl.scrollTop = logEl.scrollHeight;
   }
 
-  // ---------------- Template handling ----------------
-  makeDropzone(templateDz, templateInput, (files) => {
-    const file = files.find(f => /\.html?$/i.test(f.name)) || files[0];
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, c => ({
+      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+    })[c]);
+  }
+
+  function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+  const normPath   = p => String(p).replace(/\\/g, '/').replace(/^\.\//, '').replace(/^\/+/, '');
+  const dirOf      = p => { const i = p.lastIndexOf('/'); return i < 0 ? '' : p.slice(0, i + 1); };
+  const baseOf     = p => { const i = p.lastIndexOf('/'); return i < 0 ? p : p.slice(i + 1); };
+  const stripExt   = n => { const i = n.lastIndexOf('.'); return i <= 0 ? n : n.slice(0, i); };
+  const ensureHtml = n => (/\.html?$/i.test(n) ? n : n + '.html');
+
+  function sanitizeName(n) {
+    n = baseOf(normPath(n)).replace(/[\u0000-\u001f<>:"|?*]/g, '').trim();
+    return n || 'notebook';
+  }
+
+  const isNotebookPath   = p => /\.ipynb$/i.test(p);
+  const isHtmlPath       = p => /\.html?$/i.test(p);
+  const isCheckpointPath = p => /(^|\/)\.ipynb_checkpoints(\/|$)/i.test(p);
+  const isJunkPath       = p =>
+    /(^|\/)__MACOSX(\/|$)/i.test(p) || /(^|\/)\.DS_Store$/i.test(p) ||
+    /(^|\/)Thumbs\.db$/i.test(p) || /(^|\/)\._[^/]*$/.test(p);
+
+  async function sourceToBytes(source) {
+    if (source.type === 'bytes') return source.data;
+    const buf = await source.file.arrayBuffer();
+    return new Uint8Array(buf);
+  }
+
+  function sourceToFile(source, name) {
+    if (source.type === 'file') return source.file;
+    return new File([source.data], sanitizeName(name), { type: 'application/json' });
+  }
+
+  function sourceSize(source) {
+    return source.type === 'bytes' ? source.data.length : source.file.size;
+  }
+
+  // Case-insensitive path map that preserves the original spelling / order.
+  class OutTree {
+    constructor() { this.map = new Map(); }
+    key(p) { return p.toLowerCase(); }
+    set(p, source) { this.map.set(this.key(p), { path: p, source }); }
+    has(p) { return this.map.has(this.key(p)); }
+    get(p) { return this.map.get(this.key(p)); }
+    delete(p) { return this.map.delete(this.key(p)); }
+    get size() { return this.map.size; }
+    values() { return Array.from(this.map.values()); }
+  }
+
+  // =====================================================================
+  //  Drop zones (files + directories)
+  // =====================================================================
+  function walkEntry(entry, prefix, out) {
+    return new Promise(resolve => {
+      if (!entry) return resolve();
+      if (entry.isFile) {
+        entry.file(
+          f => { out.push({ file: f, relPath: prefix + entry.name }); resolve(); },
+          () => resolve()
+        );
+      } else if (entry.isDirectory) {
+        const reader = entry.createReader();
+        const all = [];
+        const readBatch = () => reader.readEntries(async batch => {
+          if (!batch.length) {
+            for (const e of all) await walkEntry(e, prefix + entry.name + '/', out);
+            return resolve();
+          }
+          all.push(...batch);
+          readBatch();
+        }, () => resolve());
+        readBatch();
+      } else resolve();
+    });
+  }
+
+  async function collectFromDataTransfer(dt) {
+    const out = [];
+    // webkitGetAsEntry() must be called synchronously, before any await.
+    const entries = [];
+    if (dt.items && dt.items.length) {
+      for (const it of Array.from(dt.items)) {
+        const e = it.webkitGetAsEntry ? it.webkitGetAsEntry() : null;
+        if (e) entries.push(e);
+      }
+    }
+    if (entries.length) {
+      for (const e of entries) await walkEntry(e, '', out);
+      return out;
+    }
+    return Array.from(dt.files || []).map(f => ({ file: f, relPath: f.name }));
+  }
+
+  function makeDropzone(zoneEl, onItems, inputEl) {
+    if (inputEl) zoneEl.addEventListener('click', () => inputEl.click());
+    ['dragenter', 'dragover'].forEach(ev =>
+      zoneEl.addEventListener(ev, e => {
+        e.preventDefault(); e.stopPropagation();
+        zoneEl.classList.add('drag-over');
+      })
+    );
+    ['dragleave', 'drop'].forEach(ev =>
+      zoneEl.addEventListener(ev, e => {
+        e.preventDefault(); e.stopPropagation();
+        zoneEl.classList.remove('drag-over');
+      })
+    );
+    zoneEl.addEventListener('drop', async e => {
+      const items = await collectFromDataTransfer(e.dataTransfer);
+      if (items.length) onItems(items);
+    });
+  }
+  ['dragover', 'drop'].forEach(ev =>
+    window.addEventListener(ev, e => e.preventDefault())
+  );
+
+  // =====================================================================
+  //  Template handling
+  // =====================================================================
+  function loadTemplate(file) {
     if (!file) return;
     if (!/\.html?$/i.test(file.name)) {
       templateStatus.innerHTML =
-        `<div class="err-box">⚠️ <code>${file.name}</code> is not an HTML file.</div>`;
+        `<div class="err-box">⚠️ <code>${escapeHtml(file.name)}</code> is not an HTML file.</div>`;
       return;
     }
     const reader = new FileReader();
-    reader.onload = (ev) => {
+    reader.onload = ev => {
       const html = ev.target.result;
       const looksRight = /nbrunner/i.test(html) && /nb-worksheet/.test(html);
       templateHtml = html;
       templateName = file.name;
-      if (!looksRight) {
-        templateStatus.innerHTML =
-          `<div class="err-box">⚠️ Loaded <code>${file.name}</code> but it doesn't
-           look like a SageMath HTML notebook (missing <code>nbrunner</code> or
-           <code>.nb-worksheet</code>). Conversion will probably fail.</div>`;
-      } else {
-        templateStatus.innerHTML =
-          `<div class="ok-box">✅ Template loaded: <strong>${file.name}</strong>
-           (${(file.size/1024).toFixed(1)} KB)</div>`;
-      }
+      templateStatus.innerHTML = looksRight
+        ? `<div class="ok-box">✅ Template loaded: <strong>${escapeHtml(file.name)}</strong>
+             (${(file.size/1024).toFixed(1)} KB)</div>`
+        : `<div class="err-box">⚠️ Loaded <code>${escapeHtml(file.name)}</code> but it doesn't
+             look like a SageMath HTML notebook (missing <code>nbrunner</code> or
+             <code>.nb-worksheet</code>). Conversion will probably fail.</div>`;
       updateConvertButton();
     };
     reader.onerror = () => {
       templateStatus.innerHTML =
-        `<div class="err-box">Could not read <code>${file.name}</code>.</div>`;
+        `<div class="err-box">Could not read <code>${escapeHtml(file.name)}</code>.</div>`;
     };
     reader.readAsText(file);
+  }
+
+  makeDropzone(templateDz, items => {
+    const f = items.map(i => i.file).find(f => /\.html?$/i.test(f.name)) || items[0].file;
+    loadTemplate(f);
+  }, templateInput);
+
+  templateInput.addEventListener('change', e => {
+    if (e.target.files.length) loadTemplate(e.target.files[0]);
+    templateInput.value = '';
   });
 
-  // ---------------- IPYNB handling ----------------
-  makeDropzone(ipynbDz, ipynbInput, (files) => {
-    const accepted = files.filter(f => /\.ipynb$/i.test(f.name));
-    const rejected = files.filter(f => !/\.ipynb$/i.test(f.name));
-    if (rejected.length) {
-      log(`Skipped ${rejected.length} non-.ipynb file(s): ` +
-          rejected.map(f => f.name).join(', '), 'warn');
+  // =====================================================================
+  //  Input ingestion (loose files / zips / folders)
+  // =====================================================================
+  async function ingest(items) {
+    const folderGroups = new Map();   // root folder name -> entries
+    const zipFiles = [];
+    const looseNew = [];
+    const skipped = [];
+
+    for (const it of items) {
+      const rel = normPath(it.relPath || it.file.webkitRelativePath || it.file.name);
+      if (rel.includes('/')) {
+        const root = rel.split('/')[0];
+        if (!folderGroups.has(root)) folderGroups.set(root, []);
+        folderGroups.get(root).push({ path: rel, source: { type: 'file', file: it.file } });
+      } else if (/\.zip$/i.test(rel)) {
+        zipFiles.push(it.file);
+      } else if (isNotebookPath(rel)) {
+        looseNew.push(it.file);
+      } else {
+        skipped.push(rel);
+      }
     }
-    // Append, dedupe by name+size
+
+    // --- loose notebooks (dedupe by name+size) ---
     const key = f => f.name + '|' + f.size;
-    const existing = new Set(ipynbFiles.map(key));
-    for (const f of accepted) {
+    const existing = new Set(looseFiles.map(l => key(l.file)));
+    for (const f of looseNew) {
       if (!existing.has(key(f))) {
-        ipynbFiles.push(f);
+        looseFiles.push({ file: f, status: 'pending' });
         existing.add(key(f));
       }
     }
-    renderFileList();
+    if (looseNew.length) log(`Added ${looseNew.length} loose notebook(s).`);
+
+    // --- uploaded folders ---
+    for (const [root, entries] of folderGroups) {
+      entries.sort((a, b) => a.path.localeCompare(b.path));
+      bundles.push({
+        kind: 'folder',
+        label: root,
+        entries: entries.map(e => ({ path: e.path, source: e.source, status: 'pending' }))
+      });
+      const nbs = entries.filter(e => isNotebookPath(e.path)).length;
+      log(`Added folder "${root}": ${entries.length} file(s), ${nbs} notebook(s).`);
+    }
+
+    // --- zip archives ---
+    for (const zf of zipFiles) {
+      try {
+        const buf = new Uint8Array(await zf.arrayBuffer());
+        const unzipped = fflate.unzipSync(buf);
+        const entries = [];
+        for (const rawPath of Object.keys(unzipped)) {
+          const p = normPath(rawPath);
+          if (!p || p.endsWith('/')) continue;                       // directory record
+          const data = unzipped[rawPath];
+          if (!data) continue;
+          entries.push({ path: p, source: { type: 'bytes', data }, status: 'pending' });
+        }
+        entries.sort((a, b) => a.path.localeCompare(b.path));
+        if (!entries.length) { log(`Archive "${zf.name}" is empty — ignored.`, 'warn'); continue; }
+        bundles.push({ kind: 'zip', label: zf.name, entries });
+        const nbs = entries.filter(e => isNotebookPath(e.path)).length;
+        log(`Added archive "${zf.name}": ${entries.length} file(s), ${nbs} notebook(s).`);
+      } catch (err) {
+        log(`Could not read archive "${zf.name}": ${err.message}`, 'err');
+        inputStatus.innerHTML =
+          `<div class="err-box">⚠️ <code>${escapeHtml(zf.name)}</code> could not be unpacked
+           (encrypted or unsupported compression). Please unzip it and upload the folder instead.</div>`;
+      }
+    }
+
+    if (skipped.length) {
+      log(`Ignored ${skipped.length} unsupported top-level file(s): ` +
+          skipped.slice(0, 8).join(', ') + (skipped.length > 8 ? ' …' : ''), 'warn');
+    }
+
+    renderInputs();
+    updateConvertButton();
+  }
+
+  makeDropzone(inputDz, ingest, fileInput);
+
+  fileInput.addEventListener('change', e => {
+    const items = Array.from(e.target.files).map(f => ({ file: f, relPath: f.name }));
+    fileInput.value = '';
+    if (items.length) ingest(items);
+  });
+
+  folderInput.addEventListener('change', e => {
+    const items = Array.from(e.target.files).map(f => ({
+      file: f, relPath: f.webkitRelativePath || f.name
+    }));
+    folderInput.value = '';
+    if (items.length) ingest(items);
+  });
+
+  pickFolderBtn.addEventListener('click', () => folderInput.click());
+
+  clearBtn.addEventListener('click', () => {
+    looseFiles.length = 0;
+    bundles.length = 0;
+    inputStatus.innerHTML = '';
+    renderInputs();
     updateConvertButton();
   });
 
-  function renderFileList() {
+  // =====================================================================
+  //  Input rendering
+  // =====================================================================
+  function bundleNotebooks(b) {
+    const skipCkpt = skipCkptCb.checked;
+    return b.entries.filter(e =>
+      isNotebookPath(e.path) && !(skipCkpt && (isCheckpointPath(e.path) || isJunkPath(e.path)))
+    );
+  }
+
+  function totalNotebooks() {
+    return looseFiles.length + bundles.reduce((n, b) => n + bundleNotebooks(b).length, 0);
+  }
+
+  function renderInputs() {
+    // loose notebooks
     fileList.innerHTML = '';
-    ipynbFiles.forEach((f, i) => {
+    looseFiles.forEach((entry, i) => {
       const li = document.createElement('li');
-      const status = fileStatus.get(f) || 'pending';
       li.innerHTML = `
-        <span>📓 ${escapeHtml(f.name)}
-          <small style="color:#999">(${(f.size/1024).toFixed(1)} KB)</small></span>
+        <span>📓 <span class="path">${escapeHtml(entry.file.name)}</span>
+          <small style="color:#999">(${(entry.file.size/1024).toFixed(1)} KB)</small></span>
         <span>
-          <span class="status-${status}">${status}</span>
+          <span class="status-${entry.status}">${entry.status}</span>
           <button class="link-btn" data-i="${i}" title="Remove">✕</button>
         </span>`;
       fileList.appendChild(li);
     });
     fileList.querySelectorAll('button.link-btn').forEach(b => {
       b.addEventListener('click', () => {
-        const idx = parseInt(b.dataset.i);
-        const removed = ipynbFiles.splice(idx, 1)[0];
-        fileStatus.delete(removed);
-        renderFileList();
+        looseFiles.splice(parseInt(b.dataset.i), 1);
+        renderInputs();
+        updateConvertButton();
+      });
+    });
+
+    // bundles
+    bundlesEl.innerHTML = '';
+    bundles.forEach((b, bi) => {
+      const nbs = bundleNotebooks(b);
+      const others = b.entries.length - nbs.length;
+      const icon = b.kind === 'zip' ? '📦' : '📁';
+      const div = document.createElement('div');
+      div.className = 'bundle';
+      div.innerHTML = `
+        <div class="bundle-head">
+          <span>${icon} <strong>${escapeHtml(b.label)}</strong>
+            <span class="badge">${nbs.length} notebook${nbs.length === 1 ? '' : 's'}</span>
+            <span class="badge">${others} other file${others === 1 ? '' : 's'}</span></span>
+          <button class="link-btn" data-b="${bi}" title="Remove">✕</button>
+        </div>
+        <details>
+          <summary>Show notebooks that will be converted</summary>
+          <ul class="filelist">
+            ${nbs.length
+              ? nbs.map(e => `<li><span class="path">${escapeHtml(e.path)}</span>
+                   <span class="status-${e.status}">${e.status}</span></li>`).join('')
+              : '<li><em style="color:#888">No notebooks found — files will just be passed through.</em></li>'}
+          </ul>
+        </details>`;
+      bundlesEl.appendChild(div);
+    });
+    bundlesEl.querySelectorAll('button.link-btn').forEach(b => {
+      b.addEventListener('click', () => {
+        bundles.splice(parseInt(b.dataset.b), 1);
+        renderInputs();
         updateConvertButton();
       });
     });
   }
 
-  function escapeHtml(s) {
-    return s.replace(/[&<>"']/g, c => ({
-      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
-    })[c]);
-  }
-
-  function setFileStatus(file, status) {
-    fileStatus.set(file, status);
-    renderFileList();
-  }
+  skipCkptCb.addEventListener('change', () => { renderInputs(); updateConvertButton(); });
 
   function updateConvertButton() {
-    convertBtn.disabled = !(templateHtml && ipynbFiles.length > 0);
+    convertBtn.disabled = !(templateHtml && totalNotebooks() > 0);
   }
 
-  // ---------------- Conversion ----------------
+  function setStatus(entry, status) {
+    entry.status = status;
+    renderInputs();
+  }
+
+  function setProgress(done, total, label) {
+    progressWrap.style.display = 'block';
+    const pct = total ? Math.round((done / total) * 100) : 0;
+    progressBar.style.width = pct + '%';
+    progressText.textContent = `${done} / ${total} notebooks converted${label ? ' — ' + label : ''}`;
+  }
+
+  // =====================================================================
+  //  Conversion
+  // =====================================================================
   convertBtn.addEventListener('click', async () => {
     convertBtn.disabled = true;
-    const settle = parseInt(settleInput.value) || 2500;
-    const gap    = parseInt(delayInput.value)  || 0;
+    const settle   = parseInt(settleInput.value) || 2500;
+    const gap      = parseInt(delayInput.value)  || 0;
+    const naming   = document.querySelector('input[name=naming]:checked').value; // 'filename' | 'h1'
+    const keepNb   = keepIpynbCb.checked;
+    const skipCkpt = skipCkptCb.checked;
+    inputStatus.innerHTML = '';
 
-    log(`Starting conversion of ${ipynbFiles.length} file(s) using template "${templateName}"…`);
-
-    const produced = [];
-
-    for (let i = 0; i < ipynbFiles.length; i++) {
-      const f = ipynbFiles[i];
-      setFileStatus(f, 'processing');
-      log(`(${i+1}/${ipynbFiles.length}) Converting "${f.name}"…`);
-      try {
-        const result = await convertOne(f, settle);
-        produced.push(result);
-        setFileStatus(f, 'done');
-        log(`   ✓ produced "${result.name}" (${(result.data.length/1024).toFixed(1)} KB)`, 'ok');
-      } catch (err) {
-        setFileStatus(f, 'error');
-        log(`   ✗ "${f.name}" failed: ${err.message}`, 'err');
-        console.error(err);
-      }
-      if (i < ipynbFiles.length - 1 && gap > 0) await sleep(gap);
+    // ---- build processing units ----
+    const units = [];
+    if (looseFiles.length) {
+      units.push({
+        kind: 'loose',
+        label: 'individual notebooks',
+        entries: looseFiles.map(l => ({
+          path: l.file.name,
+          source: { type: 'file', file: l.file },
+          ref: l
+        }))
+      });
+    }
+    for (const b of bundles) {
+      units.push({ kind: b.kind, label: b.label, entries: b.entries.map(e => ({ ...e, ref: e })) });
     }
 
-    if (produced.length === 0) {
-      log('No files produced; nothing to download.', 'err');
+    const multi = units.length > 1;
+    const prefixFor = u => (multi && u.kind === 'zip')
+      ? sanitizeName(stripExt(u.label)).replace(/\s+/g, '_') + '/'
+      : '';
+
+    const total = totalNotebooks();
+    let done = 0, failed = 0, htmlProduced = 0;
+
+    log(`Starting conversion of ${total} notebook(s) using template "${templateName}" ` +
+        `— naming: ${naming === 'h1' ? 'first H1 heading' : 'notebook file name'}, ` +
+        `keep .ipynb: ${keepNb ? 'yes' : 'no'}.`);
+    setProgress(0, total, 'starting…');
+
+    const out = new OutTree();
+    const producedKeys = new Set();   // lowercase paths written during this run
+
+    for (const unit of units) {
+      const pfx = prefixFor(unit);
+      if (pfx) log(`Unit "${unit.label}" → placed under "${pfx}"`, 'dim');
+
+      const notebooks = [];
+
+      // 1) pass-through inventory
+      for (const e of unit.entries) {
+        const rel = normPath(e.path);
+        if (skipCkpt && (isCheckpointPath(rel) || isJunkPath(rel))) {
+          if (e.ref) e.ref.status = 'skipped';
+          continue;
+        }
+        const outPath = pfx + rel;
+        if (isNotebookPath(rel)) {
+          notebooks.push({ ...e, outPath });
+          if (keepNb && unit.kind !== 'loose') out.set(outPath, e.source);
+        } else {
+          // avoid silently overwriting an identically named pass-through file
+          let p = outPath, n = 1;
+          while (out.has(p)) {
+            p = dirOf(outPath) + stripExt(baseOf(outPath)) + '_' + (n++) +
+                baseOf(outPath).slice(stripExt(baseOf(outPath)).length);
+          }
+          out.set(p, e.source);
+        }
+      }
+      renderInputs();
+
+      // 2) convert notebooks
+      for (const nb of notebooks) {
+        if (nb.ref) setStatus(nb.ref, 'processing');
+        log(`(${done + failed + 1}/${total}) Converting "${nb.outPath}"…`);
+        setProgress(done, total, nb.outPath);
+
+        const dir  = dirOf(nb.outPath);
+        const base = stripExt(baseOf(nb.outPath));
+
+        try {
+          const file = sourceToFile(nb.source, baseOf(nb.path));
+          const result = await convertOne(file, settle);
+
+          let htmlName = (naming === 'h1' && result.name)
+            ? ensureHtml(sanitizeName(result.name))
+            : base + '.html';
+
+          // --- stale-HTML rule: drop old exports of THIS notebook only ---
+          for (const cand of [dir + base + '.html', dir + base + '.htm', dir + htmlName]) {
+            if (producedKeys.has(cand.toLowerCase())) continue;   // fresh file, handled below
+            if (out.has(cand) && isHtmlPath(cand)) {
+              const old = out.get(cand).path;
+              out.delete(cand);
+              log(`   🗑 replaced pre-existing "${old}"`, 'warn');
+            }
+          }
+
+          // --- collision with something produced in this very run ---
+          let finalName = htmlName, n = 1;
+          while (producedKeys.has((dir + finalName).toLowerCase())) {
+            finalName = stripExt(htmlName) + '_' + (n++) + '.html';
+          }
+          if (finalName !== htmlName) {
+            log(`   ↪ name taken, using "${finalName}"`, 'warn');
+          }
+
+          const outPath = dir + finalName;
+          out.set(outPath, { type: 'bytes', data: result.data });
+          producedKeys.add(outPath.toLowerCase());
+          htmlProduced++;
+          done++;
+          if (nb.ref) setStatus(nb.ref, 'done');
+          log(`   ✓ "${outPath}" (${(result.data.length/1024).toFixed(1)} KB)`, 'ok');
+        } catch (err) {
+          failed++;
+          if (nb.ref) setStatus(nb.ref, 'error');
+          log(`   ✗ "${nb.outPath}" failed: ${err.message} — original .ipynb kept, ` +
+              `existing HTML left untouched.`, 'err');
+          console.error(err);
+          if (!out.has(nb.outPath)) out.set(nb.outPath, nb.source);   // never lose the source
+        }
+
+        setProgress(done, total, '');
+        if (done + failed < total && gap > 0) await sleep(gap);
+      }
+    }
+
+    // ---- deliver ----
+    if (htmlProduced === 0) {
+      log('No HTML files produced; nothing to download.', 'err');
+      inputStatus.innerHTML =
+        `<div class="err-box">No notebook could be converted. Check the log above and try a
+         longer settle time or a different template.</div>`;
       convertBtn.disabled = false;
       return;
     }
 
-    if (produced.length === 1) {
-      const r = produced[0];
-      downloadBlob(new Blob([r.data], { type: 'text/html;charset=utf-8' }), r.name);
-      log(`Downloaded "${r.name}".`, 'ok');
+    const entriesOut = out.values();
+    const singleHtml = entriesOut.length === 1 &&
+                       producedKeys.has(entriesOut[0].path.toLowerCase());
+
+    if (singleHtml) {
+      const bytes = await sourceToBytes(entriesOut[0].source);
+      downloadBlob(new Blob([bytes], { type: 'text/html;charset=utf-8' }), baseOf(entriesOut[0].path));
+      log(`Downloaded "${baseOf(entriesOut[0].path)}".`, 'ok');
     } else {
+      log(`Zipping ${entriesOut.length} file(s) with fflate…`);
       const zipObj = {};
-      const used = new Set();
-      for (const r of produced) {
-        let name = r.name;
-        let n = 1;
-        while (used.has(name)) {
-          const dot = r.name.lastIndexOf('.');
-          name = (dot > -1
-            ? r.name.slice(0, dot) + '_' + n + r.name.slice(dot)
-            : r.name + '_' + n);
-          n++;
-        }
-        used.add(name);
-        zipObj[name] = r.data;
+      for (const { path, source } of entriesOut) zipObj[path] = await sourceToBytes(source);
+
+      let zipped;
+      try {
+        zipped = await zipAsync(zipObj, { level: 6 });
+      } catch (err) {
+        log('Async zip failed, falling back to synchronous zip…', 'warn');
+        zipped = fflate.zipSync(zipObj, { level: 6 });
       }
-      log('Zipping with fflate…');
-      const zipped = fflate.zipSync(zipObj, { level: 6 });
-      let zipName = (zipNameInput.value.trim() || 'notebooks.zip')
+
+      let zipName = (zipNameInput.value.trim() || 'converted.zip')
         .replace(/[^a-zA-Z0-9._-]/g, '_');
       if (!zipName.toLowerCase().endsWith('.zip')) zipName += '.zip';
       downloadBlob(new Blob([zipped], { type: 'application/zip' }), zipName);
-      log(`Downloaded "${zipName}" (${produced.length} files, ${(zipped.length/1024).toFixed(1)} KB).`, 'ok');
+      log(`Downloaded "${zipName}" — ${htmlProduced} HTML file(s), ` +
+          `${entriesOut.length} entries total, ${(zipped.length/1024).toFixed(1)} KB.`, 'ok');
     }
 
+    inputStatus.innerHTML = failed
+      ? `<div class="err-box">Finished with ${failed} failure(s) — ${htmlProduced} HTML file(s)
+         created. Failed notebooks were kept as <code>.ipynb</code> in the output.</div>`
+      : `<div class="ok-box">✅ Finished: ${htmlProduced} HTML file(s) created.</div>`;
+
+    setProgress(done, total, failed ? `${failed} failed` : 'complete');
     convertBtn.disabled = false;
   });
+
+  function zipAsync(obj, opts) {
+    return new Promise((resolve, reject) => {
+      if (typeof fflate.zip !== 'function') return reject(new Error('no async zip'));
+      fflate.zip(obj, opts, (err, data) => err ? reject(err) : resolve(data));
+    });
+  }
 
   function downloadBlob(blob, filename) {
     const url = URL.createObjectURL(blob);
@@ -564,9 +1086,8 @@
     setTimeout(() => URL.revokeObjectURL(url), 5000);
   }
 
-  function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
-
-  // Convert a single .ipynb. Returns { name, data: Uint8Array }.
+  // Convert a single .ipynb (File). Returns { name, data: Uint8Array }.
+  // `name` is whatever the template's saveHtml() chose (H1-based).
   function convertOne(file, settleMs) {
     return new Promise((resolve, reject) => {
       const iframe = document.createElement('iframe');
@@ -649,8 +1170,9 @@
       })();
     });
   }
-</script>
 
+  renderInputs();
+</script>
 
 
 </body></html>
